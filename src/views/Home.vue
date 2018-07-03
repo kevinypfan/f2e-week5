@@ -1,76 +1,100 @@
 <template>
-  <div class="home">
-    <div class="container">
-    <div class="col-6">
-      <div class="img-block">
-        <img src="https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/comic%20cover.png" alt="">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div v-if="ad" class="ad-block vue-ad"></div>
       </div>
     </div>
-    <div class="col-6">
-      <h3 class="comic-title">MY HEXSCHOOL</h3>
-      <div class="comic-detail">
-        <div class="detail-group">
-          <strong>Genres</strong>
-          <span>Fusce/vehicula/dolor</span>
+    <div class="main">
+      <div class="row">
+        <div class="col-6">
+          <div class="img-block">
+            <img src="https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/comic%20cover.png" alt="">
+          </div>
         </div>
-        <div class="detail-group">
-          <strong>Author</strong>
-          <span>Namae Shiranai</span>
-        </div>
-        <div class="detail-group">
-          <strong>Status</strong>
-          <span>Ongoing</span>
-        </div>
-        <div class="detail-group">
-          <strong>Rate</strong>
-          <span>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="far fa-star"></i>
-          </span>
-        </div>
-        <div class="detail-group">
-          <strong>Summary</strong>
-          <p>If your banker breaks, you snap; if your apothecary by mistake sends you poison in your pills, you die. </p>
-          <p>Therefore, I say, I saw that this situation of mine was the precise situation of every mortal that has this Siamese connexion with a plurality of other mortals.</p>
+        <div class="col-6">
+          <h3 class="comic-title">MY HEXSCHOOL</h3>
+          <div class="comic-detail">
+            <div class="detail-group">
+              <strong>Genres</strong>
+              <span>Fusce/vehicula/dolor</span>
+            </div>
+            <div class="detail-group">
+              <strong>Author</strong>
+              <span>Namae Shiranai</span>
+            </div>
+            <div class="detail-group">
+              <strong>Status</strong>
+              <span>Ongoing</span>
+            </div>
+            <div class="detail-group">
+              <strong>Rate</strong>
+              <span>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </span>
+            </div>
+            <div class="detail-group">
+              <strong>Summary</strong>
+              <p>If your banker breaks, you snap; if your apothecary by mistake sends you poison in your pills, you die. </p>
+              <p>Therefore, I say, I saw that this situation of mine was the precise situation of every mortal that has this Siamese connexion with a plurality of other mortals.</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-12">
-      <div class="chapters">
-        <div class="chap-title">
-          All Chapters
+      <div class="row">
+        <div class="col-12">
+          <div v-if="ad" class="ad-block bootstrap4-ad"></div>
         </div>
-        <ul>
-          <li>Chapter 1: The F2E Challenge Start!</li>
-          <li>Chapter 2: Todo List is Going Crazy! <span class="new-chap">NEW</span></li>
-        </ul>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="chapters">
+            <div class="chap-title">
+              All Chapters
+            </div>
+            <ul>
+              <li>Chapter 1: The F2E Challenge Start!</li>
+              <li>Chapter 2: Todo List is Going Crazy! <span class="new-chap">NEW</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div v-if="ad" class="ad-block html5-ad"></div>
+        </div>
       </div>
     </div>
   </div>
-  </div>
-  
 </template>
 
 <script>
 export default {
-  
-}
+  data() {
+    return {
+      ad: true
+    };
+  }
+};
 </script>
 
-
-
 <style lang="scss" scoped>
+$bootstrap4: "https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/ad-2.png";
+$vue: "https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/ad-1.png";
+$html5: "https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/ad-3.png";
 
-.home {
-  margin-top: 24px;
+.main {
+  margin-top: 8px;
 }
 
 .img-block {
   min-width: 300px;
   border: 4px solid #000;
+  box-sizing: border-box;
   img {
     height: 100%;
     width: 100%;
@@ -112,7 +136,7 @@ export default {
 }
 
 .chapters {
-  margin-top: 28px;
+  margin-top: 8px;
   .chap-title {
     display: inline-block;
     font-size: 24px;
@@ -125,23 +149,49 @@ export default {
   }
   ul {
     border: 4px solid #000;
-    padding: 22px 24px;
+    padding: 16px 0;
     li {
       list-style: none;
       font-size: 16px;
       line-height: 24px;
       font-weight: bold;
-      padding: 8px 8px;
+      padding: 8px 16px;
+      cursor: pointer;
       .new-chap {
         padding: 2px 12px;
-        background-color: #50FF44;
+        background-color: #50ff44;
         font-size: 14px;
         font-weight: bold;
         line-height: 14px;
         margin-left: 16px;
       }
+      &:hover {
+        background-color: #000;
+        color: white;
+        .new-chap {
+          color: black;
+        }
+      }
     }
   }
 }
-   
+
+.ad-block {
+  width: 100%;
+  background-size: cover;
+  height: 120px;
+  margin: 24px;
+}
+
+.bootstrap4-ad {
+  background-image: url(#{$bootstrap4});
+}
+
+.vue-ad {
+  background-image: url(#{$vue});
+}
+
+.html5-ad {
+  background-image: url(#{$html5});
+}
 </style>
