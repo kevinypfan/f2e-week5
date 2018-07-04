@@ -83,9 +83,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$bootstrap4: "https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/ad-2.png";
-$vue: "https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/ad-1.png";
-$html5: "https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/ad-3.png";
+$bootstrap4: 'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/ad-2.png';
+$vue: 'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/ad-1.png';
+$html5: 'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/ad-3.png';
 
 .main {
   margin-top: 8px;
@@ -107,15 +107,17 @@ $html5: "https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/
   font-size: 36px;
   font-weight: bold;
   padding: 8px 24px;
+  text-align: center;
 }
 
 .comic-detail {
   padding: 24px;
+  font-weight: 500;
   .detail-group {
     margin-top: 8px;
     strong {
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 700;
       line-height: 24px;
       display: inline-block;
       width: 30%;

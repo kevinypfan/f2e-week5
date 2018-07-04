@@ -125,6 +125,7 @@ export default {
           border: 2px solid #000;
           margin-top: 4px;
           text-align: center;
+          background-color: #fff;
           li {
             word-spacing: 4px;
             line-height: 20px;
@@ -162,7 +163,7 @@ export default {
         line-height: 20px;
         left: -20px;
         &:before {
-          content: "";
+          content: '';
           position: absolute;
           top: 0;
           left: 0;
@@ -174,7 +175,7 @@ export default {
           box-sizing: border-box;
         }
         &:after {
-          content: "";
+          content: '';
           position: absolute;
           top: 0;
           left: 0px;

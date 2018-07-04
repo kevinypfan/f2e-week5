@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import Header from "./components/Header.vue";
+import Header from './components/Header.vue';
 
 export default {
   components: {
@@ -15,13 +15,13 @@ export default {
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,700i,900");
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,700i,900');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 #app {
