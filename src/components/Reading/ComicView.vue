@@ -1,13 +1,13 @@
 <template>
   <div class="comic-view">
     <div class="row">
-      <div class="col-1 page-icon">
+      <div class="col-1 page-icon" @click="$emit('onPreviousNextPage', 'Left')">
         <i class="fas fa-angle-left fa-4x"></i>
       </div>
       <div class="col-10">
         <img :src="imgPath">
       </div>
-      <div class="col-1 page-icon">
+      <div class="col-1 page-icon" @click="$emit('onPreviousNextPage', 'Right')">
         <i class="fas fa-angle-right fa-4x"></i>
       </div>
     </div>

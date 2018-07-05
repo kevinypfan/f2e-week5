@@ -9,7 +9,7 @@
             <button class="dropdown-toggle" type="button" @click="dropdownItem = 'Chapter'">Chapter {{selectChap + 1}} <i class="fas fa-caret-down"></i> </button>
             <div class="dropdown-menu" :class="{'show': dropdownItem === 'Chapter'}">
               <ul>
-                <li v-for="(c, i) in chapAry" :key="i" @click="dropdownHandler('Chapter', i)">Chapter {{c}}</li>
+                <li v-for="(c, i) in chapAry" :key="i" @click="dropdownHandler('Chapter', i)" :class="{active: i === selectChap}">Chapter {{c}}</li>
               </ul>
             </div>
           </div>
@@ -17,7 +17,7 @@
             <button class="dropdown-toggle" type="button" @click="dropdownItem = 'Page'">Page {{displayPage(selectPage + 1)}} <i class="fas fa-caret-down"></i> </button>
             <div class="dropdown-menu" :class="{'show': dropdownItem === 'Page'}">
               <ul>
-                <li v-for="(page, i) in chapters[`${selectChap+1}`].pages" :key="i" @click="dropdownHandler('Page', i)">Page {{displayPage(i+1)}}</li>
+                <li v-for="(page, i) in chapters[`${selectChap+1}`].pages" :key="i" @click="dropdownHandler('Page', i)" :class="{active: i === selectPage}">Page {{displayPage(i+1)}}</li>
               </ul>
             </div>
           </div>
@@ -126,13 +126,17 @@ export default {
           margin-top: 4px;
           text-align: center;
           background-color: #fff;
+          .active {
+            background-color: #000;
+            color: #50ff44;
+          }
           li {
             word-spacing: 4px;
             line-height: 20px;
             padding: 8px 24px;
             &:hover {
               background-color: #000;
-              color: #50ff44;
+              color: #fff;
             }
           }
         }

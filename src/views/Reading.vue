@@ -1,9 +1,10 @@
 <template>
-  <div class="about">
+  <div class="reading">
     <div class="container">
-      <ControlBar :chapters="chapters" :dark.sync="dark" :selectChap="selectChap" :selectPage="selectPage" @onDropdownChanged="dropdownChangedHandler"/>
-      <ComicView :imgPath="chapters[`${selectChap+1}`].pages[selectPage]" />
-      <PageControl :displayPages="pageControlArray" :selectPage="selectPage" />
+      <ControlBar :chapters="chapters" :dark.sync="dark" :selectChap="selectChap" :selectPage="selectPage" @onDropdownChanged="changedHandler"/>
+      <ComicView :imgPath="chapters[`${selectChap+1}`].pages[selectPage]" @onPreviousNextPage="changedHandler" />
+      <PageControl :displayPages="pageControlArray" :selectPage="selectPage" @onPreviousNextPage="changedHandler" :chapterLen="chapterLen" :selectChap="selectChap" />
+      <ScrollBar :pagesLen="pagesLen" :selectPage="selectPage" @onPreviousNextPage="changedHandler" />
     </div>
   </div>
 </template>
@@ -11,12 +12,14 @@
 import ControlBar from '../components/Reading/ControlBar.vue';
 import ComicView from '../components/Reading/ComicView.vue';
 import PageControl from '../components/Reading/PageControl.vue';
+import ScrollBar from '../components/Reading/ScrollBar.vue';
 
 export default {
   components: {
     ControlBar,
     ComicView,
-    PageControl
+    PageControl,
+    ScrollBar
   },
   data() {
     return {
@@ -56,11 +59,11 @@ export default {
         }
       },
       selectChap: 0,
-      selectPage: 4
+      selectPage: 0
     };
   },
   methods: {
-    dropdownChangedHandler(type, index) {
+    changedHandler(type, index) {
       switch (type) {
         case 'Chapter':
           this.selectChap = index;
@@ -68,6 +71,28 @@ export default {
           break;
         case 'Page':
           this.selectPage = index;
+          break;
+        case 'Left':
+          if (this.selectPage !== 0) {
+            this.selectPage -= 1;
+          }
+          break;
+        case 'Right':
+          if (this.selectPage < this.pagesLen - 1) {
+            this.selectPage += 1;
+          }
+          break;
+        case 'Next':
+          if (this.selectChap < this.chapterLen - 1) {
+            this.selectChap += 1;
+            this.selectPage = 0;
+          }
+          break;
+        case 'Previous':
+          if (this.selectChap > 0) {
+            this.selectChap -= 1;
+            this.selectPage = this.pagesLen - 1;
+          }
           break;
         default:
       }
@@ -83,9 +108,18 @@ export default {
         return [...chapterPages.slice(-6, chapterPagesLen), null];
       }
       return [...chapterPages.slice(this.selectPage - 3, this.selectPage + 4)];
+    },
+    pagesLen() {
+      return this.chapters[`${this.selectChap + 1}`].pages.length;
+    },
+    chapterLen() {
+      return Object.keys(this.chapters).length;
     }
   }
 };
 </script>
 <style lang="scss" scoped>
+.reading {
+  margin: 0 24px;
+}
 </style>
