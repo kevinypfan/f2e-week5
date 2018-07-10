@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="control-bar">
         <div class="main">
-          <div class="book-name">My Hexschool</div>
+          <router-link tag="div" to="/" class="book-name">My Hexschool</router-link>
           <i class="fas fa-caret-right"></i>
           <div class="dropdown">
             <button class="dropdown-toggle" type="button" @click="dropdownItem = 'Chapter'">Chapter {{selectChap + 1}} <i class="fas fa-caret-down"></i> </button>
@@ -98,6 +98,7 @@ export default {
     align-items: center;
     .book-name,
     i {
+      cursor: pointer;
       font-size: 20px;
       margin-right: 8px;
     }
@@ -120,6 +121,7 @@ export default {
       }
       .dropdown-menu {
         position: absolute;
+        z-index: 999;
         ul {
           list-style-type: none;
           border: 2px solid #000;

@@ -2,10 +2,13 @@
   <div class="reading">
     <div class="container">
       <ControlBar :chapters="chapters" :dark.sync="dark" :selectChap="selectChap" :selectPage="selectPage" @onDropdownChanged="changedHandler"/>
-      <ComicView :imgPath="chapters[`${selectChap+1}`].pages[selectPage]" @onPreviousNextPage="changedHandler" />
+      <ComicView :imgPath="chapters[`${selectChap+1}`].pages[selectPage]" @onPreviousNextPage="changedHandler" @click="fullScreen = !fullScreen" />
       <PageControl :displayPages="pageControlArray" :selectPage="selectPage" @onPreviousNextPage="changedHandler" :chapterLen="chapterLen" :selectChap="selectChap" />
       <ScrollBar :pagesLen="pagesLen" :selectPage="selectPage" @onPreviousNextPage="changedHandler" />
     </div>
+    <transition name="fade">
+      <FullScreen v-if="fullScreen" @onPreviousNextPage="changedHandler" :imgPath="chapters[`${selectChap+1}`].pages[selectPage]" />
+    </transition>
   </div>
 </template>
 <script>
@@ -13,13 +16,15 @@ import ControlBar from '../components/Reading/ControlBar.vue';
 import ComicView from '../components/Reading/ComicView.vue';
 import PageControl from '../components/Reading/PageControl.vue';
 import ScrollBar from '../components/Reading/ScrollBar.vue';
+import FullScreen from '../components/Reading/FullScreen.vue';
 
 export default {
   components: {
     ControlBar,
     ComicView,
     PageControl,
-    ScrollBar
+    ScrollBar,
+    FullScreen
   },
   data() {
     return {
@@ -59,7 +64,8 @@ export default {
         }
       },
       selectChap: 0,
-      selectPage: 0
+      selectPage: 0,
+      fullScreen: false
     };
   },
   methods: {
@@ -94,6 +100,9 @@ export default {
             this.selectPage = this.pagesLen - 1;
           }
           break;
+        case 'FullScreen':
+          this.fullScreen = !this.fullScreen;
+          break;
         default:
       }
     }
@@ -121,5 +130,13 @@ export default {
 <style lang="scss" scoped>
 .reading {
   margin: 0 24px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
