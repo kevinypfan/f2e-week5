@@ -12,6 +12,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 import ControlBar from '../components/Reading/ControlBar.vue';
 import ComicView from '../components/Reading/ComicView.vue';
 import PageControl from '../components/Reading/PageControl.vue';
@@ -29,85 +30,22 @@ export default {
   data() {
     return {
       dark: false,
-      chapters: {
-        1: {
-          pages: [
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-1.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-2.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-3.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-4.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-5.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-6.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-7.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-8.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-9.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-10.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-11.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-12.png'
-          ]
-        },
-        2: {
-          pages: [
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-1.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-2.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-3.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-4.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-5.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-6.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-7.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-8.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-9.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-10.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-11.png',
-            'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-12.png'
-          ]
-        }
-      },
-      selectChap: 0,
-      selectPage: 0,
       fullScreen: false
     };
   },
   methods: {
     changedHandler(type, index) {
       switch (type) {
-        case 'Chapter':
-          this.selectChap = index;
-          this.selectPage = 0;
-          break;
-        case 'Page':
-          this.selectPage = index;
-          break;
-        case 'Left':
-          if (this.selectPage !== 0) {
-            this.selectPage -= 1;
-          }
-          break;
-        case 'Right':
-          if (this.selectPage < this.pagesLen - 1) {
-            this.selectPage += 1;
-          }
-          break;
-        case 'Next':
-          if (this.selectChap < this.chapterLen - 1) {
-            this.selectChap += 1;
-            this.selectPage = 0;
-          }
-          break;
-        case 'Previous':
-          if (this.selectChap > 0) {
-            this.selectChap -= 1;
-            this.selectPage = this.pagesLen - 1;
-          }
-          break;
         case 'FullScreen':
           this.fullScreen = !this.fullScreen;
           break;
         default:
+          this.$store.commit('setSelect', { type, index });
       }
     }
   },
   computed: {
+    ...mapState(['chapters', 'selectChap', 'selectPage']),
     pageControlArray() {
       const chapterPages = this.chapters[`${this.selectChap + 1}`].pages.map((path, index) => ({ index, path }));
       const chapterPagesLen = chapterPages.length;
@@ -128,10 +66,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.reading {
-  margin: 0 24px;
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;

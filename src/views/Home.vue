@@ -57,8 +57,7 @@
               All Chapters
             </div>
             <ul>
-              <li>Chapter 1: The F2E Challenge Start!</li>
-              <li>Chapter 2: Todo List is Going Crazy! <span class="new-chap">NEW</span></li>
+              <li v-for="(chapter, index) in chapters" @click="onSelectChap('Chapter', index)" :key="index">Chapter {{index}}: {{chapter.title}} <span class="new-chap" v-if="whoNew(index)">NEW</span></li>
             </ul>
           </div>
         </div>
@@ -73,11 +72,25 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
       ad: true
     };
+  },
+  computed: {
+    ...mapState(['chapters'])
+  },
+  methods: {
+    whoNew(index) {
+      return Object.keys(this.chapters).length === parseInt(index, 10);
+    },
+    onSelectChap(type, index) {
+      this.$store.commit('setSelect', { type, index: index - 1 });
+      this.$router.push('/reading');
+    }
   }
 };
 </script>

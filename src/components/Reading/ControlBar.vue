@@ -25,7 +25,7 @@
         <div class="dark-change">
           <i class="fas fa-sun"></i>
           <div class="checkbox">
-            <input id="dark" type="checkbox" :checked="dark" @change="darkChange">
+            <input id="dark" type="checkbox" :checked="$store.state.darkMode" @change="darkChange">
             <label for="dark">1</label>
           </div>
           <i class="far fa-moon"></i>
@@ -39,9 +39,6 @@ export default {
   props: {
     chapters: {
       type: Object
-    },
-    dark: {
-      type: Boolean
     },
     selectChap: {
       type: Number
@@ -62,7 +59,11 @@ export default {
   },
   methods: {
     darkChange($event) {
-      this.$emit('update:dark', $event.target.checked);
+      // this.$emit('update:dark', $event.target.checked);
+      this.$store.commit('setSelect', {
+        type: 'DarkMode',
+        value: $event.target.checked
+      });
     },
     displayPage(i) {
       if (parseInt(i, 10) < 10) {
@@ -72,8 +73,17 @@ export default {
     },
     dropdownHandler(type, index) {
       this.$emit('onDropdownChanged', type, index);
+    },
+    dropdownClose() {
       this.dropdownItem = null;
+      console.log('mouseup');
     }
+  },
+  mounted() {
+    document.addEventListener('mouseup', this.dropdownClose);
+  },
+  destroyed() {
+    document.removeEventListener('mouseup', this.dropdownClose);
   }
 };
 </script>

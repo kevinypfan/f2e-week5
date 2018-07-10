@@ -7,8 +7,10 @@ export default new Vuex.Store({
   state: {
     selectChap: 0,
     selectPage: 0,
+    darkMode: true,
     chapters: {
       1: {
+        title: 'The F2E Challenge Start!',
         pages: [
           'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-1.png',
           'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-2.png',
@@ -25,6 +27,7 @@ export default new Vuex.Store({
         ]
       },
       2: {
+        title: 'Todo List is Going Crazy!',
         pages: [
           'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-1.png',
           'https://hexschool.github.io/THE_F2E_Design/week5-comic%20viewer/assets/storyboard-2.png',
@@ -43,7 +46,10 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    setSelectChap(state, payload) {
+    setSelect(state, payload) {
+      console.log(state.selectChap);
+      const pagesLen = state.chapters[`${state.selectChap + 1}`].pages.length;
+      const chapterLen = state.chapters[`${state.selectChap + 1}`].pages.length;
       switch (payload.type) {
         case 'Chapter':
           state.selectChap = payload.index;
@@ -58,12 +64,12 @@ export default new Vuex.Store({
           }
           break;
         case 'Right':
-          if (state.selectPage < state.pagesLen - 1) {
+          if (state.selectPage < pagesLen - 1) {
             state.selectPage += 1;
           }
           break;
         case 'Next':
-          if (state.selectChap < state.chapterLen - 1) {
+          if (state.selectChap < chapterLen - 1) {
             state.selectChap += 1;
             state.selectPage = 0;
           }
@@ -71,11 +77,11 @@ export default new Vuex.Store({
         case 'Previous':
           if (state.selectChap > 0) {
             state.selectChap -= 1;
-            state.selectPage = state.pagesLen - 1;
+            state.selectPage = pagesLen - 1;
           }
           break;
-        case 'FullScreen':
-          state.fullScreen = !state.fullScreen;
+        case 'DarkMode':
+          state.darkMode = payload.value;
           break;
         default:
       }
@@ -83,5 +89,24 @@ export default new Vuex.Store({
   },
   actions: {
 
+  },
+  getters: {
+    pageControlArray(state) {
+      const chapterPages = state.chapters[`${state.selectChap + 1}`].pages.map((path, index) => ({ index, path }));
+      const chapterPagesLen = chapterPages.length;
+      if (state.selectPage - 3 < 0) {
+        return [null, ...chapterPages.slice(0, 6)];
+      } else if (state.selectPage + 3 > chapterPagesLen - 1) {
+        return [...chapterPages.slice(-6, chapterPagesLen), null];
+      }
+      return [...chapterPages.slice(state.selectPage - 3, state.selectPage + 4)];
+    },
+    pagesLen(state) {
+      return state.chapters[`${state.selectChap + 1}`].pages.length;
+    },
+    chapterLen(state) {
+      return Object.keys(state.chapters).length;
+    }
   }
 });
+
