@@ -76,7 +76,6 @@ export default {
     },
     dropdownClose() {
       this.dropdownItem = null;
-      console.log('mouseup');
     }
   },
   mounted() {

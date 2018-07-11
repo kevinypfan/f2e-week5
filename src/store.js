@@ -47,9 +47,8 @@ export default new Vuex.Store({
   },
   mutations: {
     setSelect(state, payload) {
-      console.log(state.selectChap);
       const pagesLen = state.chapters[`${state.selectChap + 1}`].pages.length;
-      const chapterLen = state.chapters[`${state.selectChap + 1}`].pages.length;
+      const chapterLen = Object.keys(state.chapters).length;
       switch (payload.type) {
         case 'Chapter':
           state.selectChap = payload.index;

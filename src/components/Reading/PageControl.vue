@@ -5,7 +5,7 @@
       <div class="col-10">
         <div class="row">
           <div class="col-1 page-place final-left">
-            <div class="img-place first-img" :style="bgcImgCssHandler(0)">
+            <div class="img-place first-img" :style="bgcImgCssHandler(0)" @click="$emit('onPreviousNextPage', 'Page', displayPages[0].index)">
               <div class="mask mask-black">
                 <div class="chapter-change" v-if="dataTextLeftHandler === 'PREVIOUS CHAPTER' || (dataTextLeftHandler === 'CHAPTER START' && !displayPages[0])" :class="{disabled: dataTextLeftHandler === 'CHAPTER START', 'chapter-change': dataTextLeftHandler === 'PREVIOUS CHAPTER' }" :data-text="dataTextLeftHandler" @click="$emit('onPreviousNextPage', 'Previous')">
                   <i class="fas fa-angle-double-left fa-2x" v-if="dataTextLeftHandler === 'PREVIOUS CHAPTER'"></i>
@@ -15,37 +15,37 @@
             </div>
           </div>
           <div class="col-2 page-place">
-            <div class="img-place" :style="bgcImgCssHandler(1)">
+            <div class="img-place" :style="bgcImgCssHandler(1)" @click="$emit('onPreviousNextPage', 'Page', displayPages[1].index)">
               <span v-if="!checkSelected(1)">{{ pageFormat(displayPages[1].index + 1) }}</span>
               <div class="mask" :class="{active: checkSelected(1), 'mask-gray': !checkSelected(1)}"></div>
             </div>
           </div>
           <div class="col-2 page-place">
-            <div class="img-place" :style="bgcImgCssHandler(2)">
+            <div class="img-place" :style="bgcImgCssHandler(2)" @click="$emit('onPreviousNextPage', 'Page', displayPages[2].index)">
               <span v-if="!checkSelected(2)">{{ pageFormat(displayPages[2].index + 1) }}</span>
               <div class="mask" :class="{active: checkSelected(2), 'mask-gray': !checkSelected(2)}"></div>
             </div>
           </div>
           <div class="col-2 page-place">
-            <div class="img-place" :style="bgcImgCssHandler(3)">
+            <div class="img-place" :style="bgcImgCssHandler(3)" @click="$emit('onPreviousNextPage', 'Page', displayPages[3].index)">
               <span v-if="!checkSelected(3)">{{ pageFormat(displayPages[3].index + 1) }}</span>
               <div class="mask" :class="{active: checkSelected(3), 'mask-gray': !checkSelected(3)}"></div>
             </div>
           </div>
           <div class="col-2 page-place">
-            <div class="img-place" :style="bgcImgCssHandler(4)">
+            <div class="img-place" :style="bgcImgCssHandler(4)" @click="$emit('onPreviousNextPage', 'Page', displayPages[4].index)">
               <span v-if="!checkSelected(4)">{{ pageFormat(displayPages[4].index + 1) }}</span>
               <div class="mask" :class="{active: checkSelected(4), 'mask-gray': !checkSelected(4)}"></div>
             </div>
           </div>
           <div class="col-2 page-place">
-            <div class="img-place" :style="bgcImgCssHandler(5)">
+            <div class="img-place" :style="bgcImgCssHandler(5)" @click="$emit('onPreviousNextPage', 'Page', displayPages[5].index)">
               <span v-if="!checkSelected(5)">{{ pageFormat(displayPages[5].index + 1) }}</span>
               <div class="mask" :class="{active: checkSelected(5), 'mask-gray': !checkSelected(5)}"></div>
             </div>
           </div>
           <div class="col-1 page-place final-right">
-            <div class="img-place last-img" :style="bgcImgCssHandler(6)">
+            <div class="img-place last-img" :style="bgcImgCssHandler(6)" @click="$emit('onPreviousNextPage', 'Page', displayPages[6].index)">
               <div class="mask mask-black">
                 <div v-if="dataTextRightHandler === 'NEXT CHAPTER' || (dataTextRightHandler === 'CHAPTER END' && !displayPages[displayPages.length-1])" :class="{disabled: dataTextRightHandler === 'CHAPTER END', 'chapter-change': dataTextRightHandler === 'NEXT CHAPTER' }" :data-text="dataTextRightHandler" @click="$emit('onPreviousNextPage', 'Next')" >
                   <i class="fas fa-angle-double-right fa-2x" v-if="dataTextRightHandler === 'NEXT CHAPTER'"></i>
